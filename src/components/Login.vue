@@ -35,7 +35,7 @@
         var _this = this
         console.log(this.$store.state)
         this.$axios
-          .post('user/login', {
+          .post('admin/login', {
             username: this.loginForm.username,
             password: this.loginForm.password
           })

@@ -5,7 +5,7 @@
       <nav-menu></nav-menu>
     </el-col>
 
-    <el-col :span="2">
+    <el-col :span="20">
       <router-view/>
     </el-col>
 

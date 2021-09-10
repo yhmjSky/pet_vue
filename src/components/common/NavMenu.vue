@@ -56,9 +56,9 @@
               {
                 menuid: 102,
                 icon: 'el-icon-position',
-                menuname: '动态管理',
+                menuname: '评论管理',
                 hasThird: 'N',
-                url: 'goods/Dynamic',
+                url: 'discuss',
                 menus: null
               }
             ]
@@ -120,10 +120,10 @@
 <style>
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     /*width: 240px;*/
-    /*min-height: 400px;*/
+    min-height: 520px;
   }
   .el-menu-vertical-demo:not(.el-menu--collapse) {
-    border: none;
+    /*border: none;*/
     text-align: left;
   }
 
