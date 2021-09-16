@@ -91,15 +91,23 @@
           </el-form-item>
 
           <el-form-item label="订单状态" prop="state">
-            <el-input size="small" v-model="editForm.state" auto-complete="off" placeholder="请输入状态">
-
-            </el-input>
+            <!--            <el-input size="small" v-model="editForm.state" auto-complete="off" placeholder="请输入状态">-->
+            <!--            </el-input>-->
+            <el-select v-model="editForm.state" placeholder="请输入状态">
+              <el-option label="未支付" value="0"></el-option>
+              <el-option label="待发货" value="2"></el-option>
+              <el-option label="已发货" value="3"></el-option>
+            </el-select>
           </el-form-item>
 
-          <el-form-item label="高级状态" prop="state_s">
-            <el-input size="small" v-model="editForm.state_s" auto-complete="off" placeholder="请输入状态">
 
-            </el-input>
+          <el-form-item label="高级状态" prop="state_s">
+
+            <el-select v-model="editForm.state_s" placeholder="请输入状态">
+              <el-option label="退款中" value="0"></el-option>
+              <el-option label="已退款" value="1"></el-option>
+            </el-select>
+
           </el-form-item>
 
           <el-form-item label="退款原因" prop="order_reason">

@@ -43,8 +43,7 @@
 
       </el-table>
 
-      <!-- 分页组件 -->
-      <Pagination v-bind:child-msg="pageparm" @callFather="callFather"></Pagination>
+
 
       <el-dialog :title="title" :visible.sync="editFormVisible" width="30%" @close="closeDialog">
         <el-form label-width="120px" :model="editGoodsForm" :rules="rules" ref="editGoodsForm">
@@ -131,18 +130,6 @@
           img : '',
           style : '',
           describe : '',
-        },
-        // 分页参数
-        pageparm: {
-          currentPage: 1,
-          pageSize: 10,
-          total: 10
-        },
-        formInline: {
-          currentPage: 1,
-          pageSize: 10,
-          itemName:'',
-          identity: ''
         }
       }
     },
@@ -205,32 +192,6 @@
         this.editFormVisible = false
 
       },
-      callFather(parm) {
-        this.formInline.currentPage = parm.currentPage
-        this.formInline.pageSize = parm.pageSize
-        this.getdata(this.formInline)
-      },
-      getdata(parameter) {
-        this.loading = true
-        // 模拟数据结束
-
-        parameter.state = parameter.state==''? -1:parameter.state;
-        OrderList(parameter)
-          .then(res => {
-            this.loading = false
-            if (res.success) {
-              this.listData = res.data.order
-              // 分页赋值
-              this.pageparm.currentPage = this.formInline.currentPage
-              this.pageparm.pageSize = this.formInline.pageSize
-              this.pageparm.total = res.data.total
-            }
-          })
-          .catch(err => {
-            this.loading = false
-            this.$message.error('菜单加载失败，请稍后再试！')
-          })
-      }
 
     }
   }

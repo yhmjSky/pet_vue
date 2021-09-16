@@ -54,25 +54,6 @@
 
       <el-dialog :title="title" :visible.sync="editFormVisible" width="30%" @close="closeDialog">
         <el-form label-width="120px" :model="editForm" :rules="rules" ref="editForm">
-<!--          <el-form-item label="图片">-->
-<!--            <el-upload-->
-<!--              class="upload-demo"-->
-<!--              ref="upload"-->
-<!--              :action="action"-->
-<!--              :on-preview="handlePreview"-->
-<!--              :on-remove="handleRemove"-->
-<!--              :file-list="fileList"-->
-<!--              :data="title==='添加'?{item:JSON.stringify(data)}:{item:JSON.stringify(editForm)}"-->
-<!--              list-type="picture-card"-->
-<!--              :auto-upload="false"-->
-<!--              :limit="9">-->
-<!--              <el-button size="small" type="primary">点击上传</el-button>-->
-<!--              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过9张</div>-->
-<!--            </el-upload>-->
-<!--            <el-dialog :visible.sync="dialogVisible">-->
-<!--              <img width="100%" :src="dialogImageUrl" alt="">-->
-<!--            </el-dialog>-->
-<!--          </el-form-item>-->
 
           <el-form-item label="订单号" prop="order_id">
             <el-input size="small" v-model="editForm.order_id" auto-complete="off" disabled placeholder=""></el-input>
@@ -91,15 +72,24 @@
           </el-form-item>
 
           <el-form-item label="订单状态" prop="state">
-            <el-input size="small" v-model="editForm.state" auto-complete="off" placeholder="请输入状态">
-
-            </el-input>
+<!--            <el-input size="small" v-model="editForm.state" auto-complete="off" placeholder="请输入状态">-->
+<!--            </el-input>-->
+            <el-select v-model="editForm.state" placeholder="请输入状态">
+              <el-option label="未支付" value="0"></el-option>
+              <el-option label="待发货" value="2"></el-option>
+              <el-option label="已发货" value="3"></el-option>
+            </el-select>
           </el-form-item>
 
-          <el-form-item label="高级状态" prop="state_s">
-            <el-input size="small" v-model="editForm.state_s" auto-complete="off" placeholder="请输入状态">
 
-            </el-input>
+          <el-form-item label="高级状态" prop="state_s">
+
+            <el-select v-model="editForm.state_s" placeholder="请输入状态">
+              <el-option label="无" value="0"></el-option>
+              <el-option label="退款中" value="1"></el-option>
+              <el-option label="已退款" value="2"></el-option>
+            </el-select>
+
           </el-form-item>
 
           <el-form-item label="退款原因" prop="order_reason">
@@ -140,6 +130,7 @@
         orderList: [],
         responseResult: [],
         editFormVisible: false,
+        order_state_temp: 0,
         editForm: {
           trow : '',
           order_id : '',
@@ -201,13 +192,17 @@
         this.editForm.state_s = row.state_s
         this.editForm.order_reason = row.order_reason
 
+        // 限制更改
+        order_state_temp = row.order_data
+
         },
       closeDialog (editForm){
         this.editFormVisible = false
       },
 
       confirmForm(){
-          var url = 'order/update2'
+        //只能往大改
+          var url = 'order/update2';
           this.$axios.put(url,{
             order_id : this.editForm.order_id,
             store_id : this.editForm.store_id,
